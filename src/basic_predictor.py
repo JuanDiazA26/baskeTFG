@@ -57,6 +57,8 @@ class BasicPredictor:
 
         """
 
+        # Net rating global como alternativa
+        
         team_info = self.df_ratings.loc[
             self.df_ratings["team"] == team,
             ["netrtg_home", "netrtg_away", "home_poss", "away_poss"],
