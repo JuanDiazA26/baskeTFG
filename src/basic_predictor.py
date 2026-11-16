@@ -1,7 +1,11 @@
-import pandas as pd
 import math
+import numpy as np
 import os
+import pandas as pd
 
+
+def norm_cdf(x: float) -> float:
+    return 0.5 * (1 + math.erf(x / math.sqrt(2)))
 
 class BasicPredictor:
     """Initial prediction model.
@@ -37,7 +41,7 @@ class BasicPredictor:
 
         df = self.df_results.copy()
 
-        df["margin"] = abs(df["PTS_h"] - df["PTS_v"])
+        df["margin"] = df["PTS_h"] - df["PTS_v"]
 
         return df["margin"].std()
 
@@ -67,30 +71,60 @@ class BasicPredictor:
             possessions = team_info["away_poss"].item()
             return net_rtg, possessions
 
-    def predict(self, home_team: str, away_team: str):
+    def _predict(self, home_team: str, away_team: str, line: float) -> tuple[float, float]:
+
+        s = -line
 
         home_rtg, home_poss = self._get_team_info(home_team, True)
         away_rtg, away_poss = self._get_team_info(away_team, False)
-
-        poss = (home_poss + away_poss) / 2
-        sigma = self.std_margin
-
         net_rtg_diff = home_rtg - away_rtg
 
-        win_prob_home = round(
-            0.5 * (1 + math.erf((net_rtg_diff * poss / 100) / sigma / math.sqrt(2))), 2
-        )
-        win_prob_away = round(1 - win_prob_home, 2)
+        poss = (home_poss + away_poss) / 2
+        home_adv = (self.df_results["PTS_h"] - self.df_results["PTS_v"]).mean()
+        mu = net_rtg_diff * poss / 100 - home_adv
+        sigma = self.std_margin
 
         # Suponiendo que el margen real sigue (aprox.) una distribución normal,
         # la probabilidad de ganar es la probabilidad de que el margen sea > 0
 
+        # Ahora la media es la diferencia "esperada" entre ambos equipos, y la línea
+        # se introduce para determinar la parte de la curva que cubre
+
+        cover_prob_home = 1 - norm_cdf((s - mu) / sigma)
+        cover_prob_away = 1 - cover_prob_home
+
         print(
-            f"La prob de victoria de {home_team.capitalize()} (local) es {win_prob_home}"
+            f"La prob de cubrir spread de {line} de {home_team.capitalize()} (local) es {cover_prob_home:.2f}"
         )
         print(
-            f"La prob de victoria de {away_team.capitalize()} (visitante) es {win_prob_away}"
+            f"La prob de cubrir spread de {-line} de {away_team.capitalize()} (visitante) es {cover_prob_away:.2f}"
         )
+
+        return cover_prob_home, cover_prob_away
+
+    def choose_line(self, home_team: str, away_team: str, min_line: float = -10.5, max_line: float = 10.5):
+
+        min_diff = 1.0
+        best_line = -2.5
+
+        for line in np.arange(min_line, max_line + 1e-9, 1.0):
+
+            line = float(line)
+
+            cover_prob_home, cover_prob_away = self._predict(
+                home_team,
+                away_team,
+                line
+            )
+
+            current_diff = abs(cover_prob_home - cover_prob_away)
+            if current_diff < min_diff:
+                min_diff = current_diff
+                best_line = line
+
+        print(f"La línea elegida para el partido entre {home_team} (local) y {away_team} (visitante) es {best_line}")
+
+        #return min_diff
 
 
 def main():
@@ -99,7 +133,7 @@ def main():
     ratings_path = "data/ratings/net_ratings_2526.csv"
 
     predictor = BasicPredictor(results_path, ratings_path)
-    predictor.predict("knicks", "celtics")
+    predictor.choose_line("knicks", "raptors")
 
 
 if __name__ == "__main__":
