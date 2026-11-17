@@ -1,11 +1,15 @@
 import math
+from nba_api.stats.endpoints import leaguedashteamstats
 import numpy as np
 import os
 import pandas as pd
 
+# Citar,a,BB,reference
+
 
 def norm_cdf(x: float) -> float:
     return 0.5 * (1 + math.erf(x / math.sqrt(2)))
+
 
 class BasicPredictor:
     """Initial prediction model.
@@ -58,7 +62,7 @@ class BasicPredictor:
         """
 
         # Net rating global como alternativa
-        
+
         team_info = self.df_ratings.loc[
             self.df_ratings["team"] == team,
             ["netrtg_home", "netrtg_away", "home_poss", "away_poss"],
@@ -73,7 +77,9 @@ class BasicPredictor:
             possessions = team_info["away_poss"].item()
             return net_rtg, possessions
 
-    def _predict(self, home_team: str, away_team: str, line: float) -> tuple[float, float]:
+    def _predict(
+        self, home_team: str, away_team: str, line: float
+    ) -> tuple[float, float]:
 
         s = -line
 
@@ -104,38 +110,50 @@ class BasicPredictor:
 
         return cover_prob_home, cover_prob_away
 
-    def choose_line(self, home_team: str, away_team: str, min_line: float = -10.5, max_line: float = 10.5):
+    def choose_line(
+        self,
+        home_team: str,
+        away_team: str,
+        min_line: float = -10.5,
+        max_line: float = 10.5,
+    ):
 
         min_diff = 1.0
         best_line = -2.5
+        favourite = home_team
 
         for line in np.arange(min_line, max_line + 1e-9, 1.0):
 
+            if line in [-0.5, 0.5]:
+                continue
+
             line = float(line)
 
-            cover_prob_home, cover_prob_away = self._predict(
-                home_team,
-                away_team,
-                line
-            )
+            cover_prob_home, cover_prob_away = self._predict(home_team, away_team, line)
 
             current_diff = abs(cover_prob_home - cover_prob_away)
             if current_diff < min_diff:
                 min_diff = current_diff
                 best_line = line
 
-        print(f"La línea elegida para el partido entre {home_team} (local) y {away_team} (visitante) es {best_line}")
+                if line > 0:
+                    favourite = away_team
+                    best_line = -line
 
-        #return min_diff
+        print(
+            f"La línea elegida entre {home_team.capitalize()} (local) y {away_team.capitalize()} (visitante) es {favourite.capitalize()}: {best_line}"
+        )
+
+        # return min_diff
 
 
 def main():
 
-    results_path = "data/results/complete/results_2526.csv"
+    results_path = "data/results/25-26/complete/results_2526.csv"
     ratings_path = "data/ratings/net_ratings_2526.csv"
 
     predictor = BasicPredictor(results_path, ratings_path)
-    predictor.choose_line("knicks", "raptors")
+    predictor.choose_line("raptors", "knicks")
 
 
 if __name__ == "__main__":
