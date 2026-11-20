@@ -10,6 +10,7 @@ import os
 import pandas as pd
 
 # Para el siguiente, añadir net ratings de equipos contra los que se saca net rating
+# Y back to backs
 
 
 class DynamicRatingPredictor:
@@ -232,7 +233,7 @@ class DynamicRatingPredictor:
 def main():
 
     predictor = DynamicRatingPredictor(recalculate=False)
-    predictor.predict_games(date="2026-11-20", min_line=-25.5, max_line=25.5)
+    predictor.predict_games(date="2026-11-21", min_line=-25.5, max_line=25.5)
 
 
 if __name__ == "__main__":

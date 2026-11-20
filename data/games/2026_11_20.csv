@@ -1,10 +1,10 @@
-home_team,away_team,favourite,lines
-Atlanta Hawks,Charlotte Hornets,Atlanta Hawks,-13.5
-Brooklyn Nets,Orlando Magic,Orlando Magic,-4.5
-Cleveland Cavaliers,Indiana Pacers,Cleveland Cavaliers,-5.5
-Detroit Pistons,Toronto Raptors,Detroit Pistons,-7.5
-Chicago Bulls,Washington Wizards,Chicago Bulls,-1.5
-Oklahoma City Thunder,New Orleans Pelicans,Oklahoma City Thunder,-12.5
-Utah Jazz,Phoenix Suns,Phoenix Suns,-5.5
-Denver Nuggets,Houston Rockets,Houston Rockets,-7.5
-Los Angeles Lakers,Sacramento Kings,Los Angeles Lakers,-21.5
+home_team,away_team,favourite,lines,real_line(espn)
+Atlanta Hawks,Charlotte Hornets,Atlanta Hawks,-13.5,-7.5
+Brooklyn Nets,Orlando Magic,Orlando Magic,-4.5,-6.5
+Cleveland Cavaliers,Indiana Pacers,Cleveland Cavaliers,-5.5,-5.5
+Detroit Pistons,Toronto Raptors,Detroit Pistons,-7.5,-6.5
+Chicago Bulls,Washington Wizards,Chicago Bulls,-1.5,-2.5
+Oklahoma City Thunder,New Orleans Pelicans,Oklahoma City Thunder,-12.5,-11.5
+Utah Jazz,Phoenix Suns,Phoenix Suns,-5.5,-4.5
+Denver Nuggets,Houston Rockets,Houston Rockets,-7.5,+1.5
+Los Angeles Lakers,Sacramento Kings,Los Angeles Lakers,-21.5,-14.5
