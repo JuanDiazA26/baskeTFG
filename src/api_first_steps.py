@@ -1,5 +1,6 @@
 from nba_api.stats.endpoints import leaguedashteamstats
 
+
 def last_n_netrtg(season="2026-27", n=10, location=None, date_to=None):
     df = leaguedashteamstats.LeagueDashTeamStats(
         season=season,
@@ -18,5 +19,6 @@ def last_n_netrtg(season="2026-27", n=10, location=None, date_to=None):
     out = df[["TEAM_NAME", "NET_RATING", "PACE", "GP"]].copy()
     # out["team"] = out["TEAM_NAME"].str.split().str[-1].str.lower()  # "Oklahoma City Thunder" -> "thunder"
     return out
+
 
 print(last_n_netrtg(season="2025-26").sort_values("NET_RATING", ascending=False).head())
