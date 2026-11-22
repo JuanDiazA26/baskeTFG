@@ -1,7 +1,5 @@
 import math
 from nba_api.stats.endpoints import (
-    leaguedashteamstats,
-    leaguegamelog,
     teamgamelogs,
     scheduleleaguev2,
 )
