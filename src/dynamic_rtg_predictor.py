@@ -234,7 +234,7 @@ class DynamicRatingPredictor:
 def main():
 
     predictor = DynamicRatingPredictor(recalculate=False)
-    predictor.predict_games(date="2026-11-21", min_line=-25.5, max_line=25.5)
+    predictor.predict_games(date="2026-11-22", min_line=-25.5, max_line=25.5)
 
 
 if __name__ == "__main__":
