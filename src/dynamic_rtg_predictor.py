@@ -10,6 +10,7 @@ import pandas as pd
 # Para el siguiente, añadir net ratings de equipos contra los que se saca net rating
 # Y back to backs
 # Pasar fecha como argumento
+# Añadir influencia de posesiones en temporada -> más posesiones, más cansancio acumulado
 
 
 class DynamicRatingPredictor:
