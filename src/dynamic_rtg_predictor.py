@@ -104,7 +104,7 @@ class DynamicRatingPredictor:
 
         # print(f"La cantidad de partidos utilizados es {len(df_team)}")
 
-        # Hay que cambiar la fórmula de cálculo, añadir exponencial
+        # Hay que cambiar la fórmula de cálculo, añadir exponencial -> URGENTE
         net_rating = df_team["NET_RATING"].mean()
         poss = df_team["PACE"].mean()
 
@@ -233,7 +233,7 @@ class DynamicRatingPredictor:
 def main():
 
     predictor = DynamicRatingPredictor(recalculate=False)
-    predictor.predict_games(date="2026-11-23", min_line=-25.5, max_line=25.5)
+    predictor.predict_games(date="2026-11-24", min_line=-25.5, max_line=25.5)
 
 
 if __name__ == "__main__":
