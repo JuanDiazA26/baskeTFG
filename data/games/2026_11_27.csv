@@ -1,12 +1,12 @@
 home_team,away_team,favourite,lines
-New York Knicks,Miami Heat,New York Knicks,-6.5
-Detroit Pistons,Milwaukee Bucks,Detroit Pistons,-17.5
-Indiana Pacers,Philadelphia 76ers,Philadelphia 76ers,-3.5
-Toronto Raptors,Brooklyn Nets,Toronto Raptors,-8.5
-Boston Celtics,Atlanta Hawks,Boston Celtics,-7.5
-Minnesota Timberwolves,Memphis Grizzlies,Minnesota Timberwolves,-2.5
-Phoenix Suns,Dallas Mavericks,Dallas Mavericks,-1.5
-San Antonio Spurs,Los Angeles Lakers,San Antonio Spurs,-5.5
-Utah Jazz,Denver Nuggets,Denver Nuggets,-6.5
-LA Clippers,New Orleans Pelicans,LA Clippers,-1.5
-Portland Trail Blazers,Golden State Warriors,Portland Trail Blazers,-7.5
+New York Knicks,Miami Heat,New York Knicks,-6.5,-2.5
+Detroit Pistons,Milwaukee Bucks,Detroit Pistons,-17.5,-9.5
+Indiana Pacers,Philadelphia 76ers,Philadelphia 76ers,-3.5,-3.5
+Toronto Raptors,Brooklyn Nets,Toronto Raptors,-8.5,-9.5
+Boston Celtics,Atlanta Hawks,Boston Celtics,-7.5,-8.5
+Minnesota Timberwolves,Memphis Grizzlies,Minnesota Timberwolves,-2.5,-3.5
+Phoenix Suns,Dallas Mavericks,Dallas Mavericks,-1.5,+1.5
+San Antonio Spurs,Los Angeles Lakers,San Antonio Spurs,-5.5,-6.5
+Utah Jazz,Denver Nuggets,Denver Nuggets,-6.5,-9.5
+LA Clippers,New Orleans Pelicans,LA Clippers,-1.5,-2.5
+Portland Trail Blazers,Golden State Warriors,Portland Trail Blazers,-7.5,-9.5
